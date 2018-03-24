@@ -4,7 +4,10 @@
     $notice="";
     $signupEmail = "";
     $signupEmailError = "";
+    $signupPassword = "";
 	$signupPasswordError = "";
+	$confirmPassword = "";
+	$confirmPasswordError = "";
  
 
 	if(isset($_POST["signupButton"])){
@@ -28,10 +31,16 @@
 			}
 		}
 	}
+
+	if (isset ($_POST["confirmPassword"])){
+		if (empty ($_POST["confirmPassword"])){
+			$confirmPasswordError = "NB! Väli on kohustuslik!";
+		}
+	}
 	
 	if (empty(($signupEmailError) and empty($signupPasswordError))){
 		$signupPassword = hash("sha512", $_POST["signupPassword"]);		
-		signUp( $signupEmail, $signupPassword);
+		signUp($signupEmail, $signupPassword);
 		
 	}
 	
@@ -57,6 +66,9 @@
 		<br><br>
 		<input name="signupPassword" placeholder="Salasõna" type="password">
 		<span><?php echo $signupPasswordError; ?></span>
+		<br><br>
+		<input name="confirmPassword" placeholder="Kinnita salasõna" type="password">
+		<span><?php echo $confirmPasswordError; ?></span>
 		<br><br>
         <input name="signupButton" type="submit" value="Loo kasutaja">
         <p><a href="login.php">Logi sisse</a></p>
