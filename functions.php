@@ -1,6 +1,6 @@
 <?php
 	$database = "if17_roheline";
-	require("../../../config.php");
+	require("../../config.php");
 	
 	//alustame sessiooni
 	session_start();
@@ -48,12 +48,7 @@
 		//i - integer
 		//d - decimal
 		$stmt->bind_param("ss", $signupEmail, $signupPassword);
-		//$stmt->execute();
-		if ($stmt->execute()){
-			echo "\n Õnnestus!";
-		} else {
-			echo "\n Tekkis viga : " .$stmt->error;
-		}
+		$stmt->execute();
 		$stmt->close();
 		$mysqli->close();
 	}

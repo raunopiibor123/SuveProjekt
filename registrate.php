@@ -1,4 +1,4 @@
-<php?
+<?php
     require("functions.php");
     
     $notice="";
@@ -8,14 +8,6 @@
  
 
 	if(isset($_POST["signupButton"])){
-	if (isset ($_POST["signupFamilyName"])){
-		if (empty($_POST["signupFamilyName"])){
-			$signupFamilyNameError ="NB! Väli on kohustuslik!";
-		} else {
-			$signupFamilyName = test_input($_POST["signupFamilyName"]);
-		}
-	}
-
 	if (isset ($_POST["signupEmail"])){
 		if (empty ($_POST["signupEmail"])){
 			$signupEmailError ="NB! Väli on kohustuslik!";
@@ -38,7 +30,6 @@
 	}
 	
 	if (empty(($signupEmailError) and empty($signupPasswordError))){
-		echo "Hakkan salvestama!";
 		$signupPassword = hash("sha512", $_POST["signupPassword"]);		
 		signUp( $signupEmail, $signupPassword);
 		
@@ -46,7 +37,7 @@
 	
 }
 
-<?
+?>
 
 <!DOCTYPE html>
 <html lang="et">
