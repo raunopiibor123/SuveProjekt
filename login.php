@@ -39,7 +39,7 @@
     <h1 class="welcome text-center">Welcome to <br> GreenPower</h1>
         <div class="card card-container">
         <h2 class='login_title text-center'>Login</h2>
-        <hr>
+        <br>
             <form class="form-signin">
                 <span id="reauth-email" class="reauth-email"></span>
                 <p class="input_title">Email</p>

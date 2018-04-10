@@ -51,29 +51,37 @@
 <!DOCTYPE html>
 <html lang="et">
 <head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
     <meta charset="utf-8">
 	<title>Uue kasutaja loomine</title>
+
+    <h1 class='login_title text-center'>Loo kasutaja</h1>
+    <div class="container">
+	<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+	<label>Kasutajanimi (E-post)</label>
+	<br>
+			<div class="card card-container">
+			<form class="form-signin">
+				
+				<input name="signupEmail" type="email" class="login_box" value="<?php echo $signupEmail; ?>">
+				<span><?php echo $signupEmailError; ?></span>
+				<label>Parool</label>
+				<input name="signupPassword" placeholder="********" class="login_box" type="password">
+				<span><?php echo $signupPasswordError; ?></span>
+				<label>Kinnita salasõna</label>
+				<input name="confirmPassword" placeholder="********" class="login_box" type="password">
+				<span><?php echo $confirmPasswordError; ?></span>
+
+				<label>Vali kool</label>
+				<input name="signupButton" class="btn btn-lg btn-primary" type="submit" class="login_box" value="Loo kasutaja">
+				<p><a href="login.php">Logi sisse</a></p>   
+			</form>
+		</div>
+	</div>
 </head>
 <body>
-    <h1>Roheline</h1>
 
-    <h2>Loo kasutaja</h2>
-	<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-		<br>
-		<label>Kasutajanimi (E-post)</label>
-		<input name="signupEmail" type="email" value="<?php echo $signupEmail; ?>">
-		<span><?php echo $signupEmailError; ?></span>
-		<br><br>
-		<input name="signupPassword" placeholder="Salasõna" type="password">
-		<span><?php echo $signupPasswordError; ?></span>
-		<br><br>
-		<input name="confirmPassword" placeholder="Kinnita salasõna" type="password">
-		<span><?php echo $confirmPasswordError; ?></span>
-		<br><br>
-        <input name="signupButton" type="submit" value="Loo kasutaja">
-        <p><a href="login.php">Logi sisse</a></p>
-        
-	</form>
-
+</body>
 
 
