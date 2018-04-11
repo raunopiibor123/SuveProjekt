@@ -8,6 +8,7 @@
 	$signupPasswordError = "";
 	$confirmPassword = "";
 	$confirmPasswordError = "";
+	$matchingPasswordError="";
  
 
 	if(isset($_POST["signupButton"])){
@@ -38,11 +39,15 @@
 		}
 	}
 	
-	if (empty(($signupEmailError) and empty($signupPasswordError))){
-		$signupPassword = hash("sha512", $_POST["signupPassword"]);		
-		signUp($signupEmail, $signupPassword);
-		
-	}
+	if($_POST["signupPassword"]!=$_POST["confirmPassword"]){
+			$matchingPasswordError = "Paroolid ei klapi";
+		} else {
+			if (empty(($signupEmailError) and empty($signupPasswordError) and empty($confirmPasswordError) and empty($matchingPasswordError))){
+			$signupPassword = hash("sha512", $_POST["signupPassword"]);		
+			signUp($signupEmail, $signupPassword);
+			
+		}
+	}	
 	
 }
 
@@ -55,8 +60,9 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
     <meta charset="utf-8">
 	<title>Uue kasutaja loomine</title>
-
-    <h1 class='login_title text-center'>Loo kasutaja</h1>
+</head>
+<body>
+	<h1 class='login_title text-center'>Loo kasutaja</h1>
     <div class="container">
 	<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 	<label>Kasutajanimi (E-post)</label>
@@ -72,16 +78,15 @@
 				<label>Kinnita salasõna</label>
 				<input name="confirmPassword" placeholder="********" class="login_box" type="password">
 				<span><?php echo $confirmPasswordError; ?></span>
-
+				<span><?php echo $matchingPasswordError; ?></span>
 				<label>Vali kool</label>
 				<input name="signupButton" class="btn btn-lg btn-primary" type="submit" class="login_box" value="Loo kasutaja">
 				<p><a href="login.php">Logi sisse</a></p>   
 			</form>
 		</div>
 	</div>
-</head>
-<body>
-
+	</form></div>
 </body>
+</html>
 
 
