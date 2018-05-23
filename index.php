@@ -36,3 +36,13 @@ createNavbar();
 createRegisterModal();
 
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eksami jaoks</title>
+</head>
+<body>
+    <h3>Tere</h3>
+</body>
+</html>

@@ -81,4 +81,31 @@
             return $email;
         }
 
+        public function getSchool($user_id){
+            $stmt = $this->_PDO->prepare("SELECT school FROM users WHERE id=$user_id LIMIT 1"); 
+            if ( false===$stmt ){
+                die('prepare() failed: ' . htmlspecialchars($mysqli->error));
+            }
+            $stmt->execute();
+            if ( false===$stmt ){
+                die('execute() failed: ' . htmlspecialchars($mysqli->error));
+            }
+            $result = $stmt->fetch();
+            $school = $result ["school"];
+            return $school;
         }
+        public function getSchoolName($school_id){
+            $stmt = $this->_PDO->prepare("SELECT school_name FROM schools WHERE id=$school_id LIMIT 1"); 
+            if ( false===$stmt ){
+                die('prepare() failed: ' . htmlspecialchars($mysqli->error));
+            }
+            $stmt->execute();
+            if ( false===$stmt ){
+                die('execute() failed: ' . htmlspecialchars($mysqli->error));
+            }
+            $result = $stmt->fetch();
+            $schoolname = $result ["school_name"];
+            return $schoolname;
+
+        }
+    }    
