@@ -49,7 +49,7 @@ function createNavbar(){
         <ul class="nav navbar-nav">
             <li><a href="main.php">Avaleht</a></li>
             <li><a href="questions.php">Küsimustik</a></li>
-            <li><a href="raport.php">Raports</a></li>
+            <li><a href="raportid.php">Raports</a></li>
         </ul>
         <p class="navbar-text" style="float: right">Sisse logitud : '; echo $info->getEmail($_SESSION["user_id"]); echo'<a href="#"></a></p>
         <form id="signout" class="navbar-form navbar-right" role="form" method="POST" action="">
