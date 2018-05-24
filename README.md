@@ -1,5 +1,4 @@
-# SuveProjekt
-Praktika
+# SuveProjekt Praktika
 
 ## Eesmärk  
 Põhieesmärk: Klientidele luua veebileht, kus peal saab ta arvutada haridusasutuse elektritarbimist aasta/kuu/päeva/nädala lõikes.
