@@ -8,7 +8,11 @@ Põhieesmärk: Klientidele luua veebileht, kus peal saab ta arvutada haridusasut
 Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV faili või täita vormid kuude kaupa elektritarbimise kohta ning seejärel vaadata raportit, mida saab ta ka visuaaliseeritud kujul vaadata. //*Kliendile antakse ka tagasisidet haridusasutuse elektritarbimise kohta vastatud küsimuste põhjal.//*
 
 ## Liikmed
-Krister Riska, Rauno Piibor, Rasmus Kello, Elinor Roosalu, Hendrik Heinsar
+* Krister Riska
+* Rauno Piibor
+* Rasmus Kello
+* Elinor Roosalu
+* Hendrik Heinsar
 
 ## Kasutatud Tehnoloogiad
 
