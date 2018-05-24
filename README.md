@@ -15,7 +15,9 @@ Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV faili
 * Hendrik Heinsar
 
 ## Kasutatud Tehnoloogiad
-
+* Jquery
+* Highcharts
+* Bootstrap
 
 ## Ekraanitõmmis  
 
