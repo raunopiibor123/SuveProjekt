@@ -34,30 +34,11 @@
 <hr>
 <div id="chartContainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <hr>
-<div class="form-group">
-<div class="col-md-3">
-  <label for="yearSelect">Vali aasta:</label>
-  <select class="form-control" id="yearSelect">
-    <option>2017</option>
-    <option>2018</option>
-  </select>
-</div>
-<div class="col-md-3">
-  <label for="weekSelect">Vali nädal:</label>
-  <select class="form-control" id="weekSelect">
-    <?php for($i=1; $i<=52; $i++){
-        echo '<option>'.$i.'</option>';
-    } 
-    ?>
-  </select>
-</div> 
-<div class="col-md-12">
-<button type="button" id="weeklyButton" class="btn btn-primary btn-sm">Näita</button>
-</div>
-</div>
-<div id="chartContainer2" style="min-width: 310px; height: 400px; margin: 0 auto; margin-top:100px; margin-bottom:100px;"></div>
+<label for="datepicker1">Vali nädal(ükskõik milline päev)</label>
+<input type="text" class="form-control" id="datepicker1" name="datepicker1">
+<div id="chartContainer2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <hr>
-<label for="datepicker">Vali päev</label>
+<label for="datepicker">Vali kuupäev</label>
 <input type="text" class="form-control" id="datepicker" name="datepicker">
 <div id="chartContainer3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 </div>
@@ -244,13 +225,12 @@ let daychart = Highcharts.chart('chartContainer3', {
         data: []
     }]
 });
-$('#weeklyButton').click(function () {
-    let yearselection = $("#yearSelect :selected").text();
-    let weekselection = $("#weekSelect :selected").text();
+$('#datepicker1').change(function () {
+    let weekselection = document.getElementById("datepicker1").value;
 $.ajax({
       url: "getweek.php",
       type: "POST",
-      data: {"year": yearselection, "week": weekselection},
+      data: {"week": weekselection},
       dataType : "json",
       success: function(msg){
         weekchart.series[1].setData([msg[0], msg[1], msg[2], msg[3], msg[4], msg[5], msg[6]]);

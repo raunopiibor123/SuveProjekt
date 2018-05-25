@@ -8,5 +8,8 @@ $(document).ready(function() {
     $( function() {
         $( "#datepicker" ).datepicker({ dateFormat: 'dd.mm.yy', firstDay: 1 });
     });
+    $( function() {
+        $( "#datepicker1" ).datepicker({ dateFormat: 'dd.mm.yy', firstDay: 1 });
+    });
 
 });
