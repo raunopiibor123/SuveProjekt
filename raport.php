@@ -28,7 +28,28 @@
 <div class="container">
 <div id="chartContainer1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <div id="chartContainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<div id="chartContainer2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div class="form-group">
+<div class="col-md-3">
+  <label for="yearSelect">Vali aasta:</label>
+  <select class="form-control" id="yearSelect">
+    <option>2017</option>
+    <option>2018</option>
+  </select>
+</div>
+<div class="col-md-3">
+  <label for="weekSelect">Vali nädal:</label>
+  <select class="form-control" id="weekSelect">
+    <?php for($i=1; $i<=52; $i++){
+        echo '<option>'.$i.'</option>';
+    } 
+    ?>
+  </select>
+</div> 
+<div class="col-md-12">
+<button type="button" id="weeklyButton" class="btn btn-primary btn-sm">Näita</button>
+</div>
+</div>
+<div id="chartContainer2" style="min-width: 310px; height: 400px; margin: 0 auto; margin-top:100px; margin-bottom:100px;"></div>
 <div id="chartContainer3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 </div>
 
@@ -38,13 +59,13 @@ Highcharts.chart('chartContainer', {
         type: 'line'
     },
     title: {
-        text: 'Monthly Electricity Usage'
+        text: 'Elektrikasutus kuude lõikes'
     },
     subtitle: {
         text: 'Source: You'
     },
     xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        categories: ['Jaanuar', 'Veebruar', 'Märts', 'Aprill', 'Mai', 'Juuni', 'Juuli', 'August', 'September', 'Oktoober', 'November', 'Detsember']
     },
     yAxis: {
         title: {
@@ -54,13 +75,13 @@ Highcharts.chart('chartContainer', {
     plotOptions: {
         line: {
             dataLabels: {
-                enabled: true
+                enabled: false
             },
-            enableMouseTracking: false
+            enableMouseTracking: true
         }
     },
     series: [{
-        name: 'Yours',
+        name: 'Keskmine',
         data: [
                 <?php foreach($list as $value){
                     echo $value . ", ";
@@ -74,7 +95,7 @@ Highcharts.chart('chartContainer1', {
         zoomType: 'x'
     },
     title: {
-        text: 'Yearly Electricity Usage'
+        text: 'Elektrikasutus aastate lõikes'
     },
     xAxis: {
         categories: [                
@@ -135,15 +156,19 @@ Highcharts.chart('chartContainer1', {
     }]
 });
 
-Highcharts.chart('chartContainer2', {
+let weekchart = Highcharts.chart('chartContainer2', {
     chart: {
-        zoomType: 'x'
+        type: 'line'
     },
+    
     title: {
-        text: 'Average Electricity Usage on Weekdays'
+        text: 'Elektrikasutus nädala lõikes'
+    },
+    subtitle: {
+        text: 'Source: CSV'
     },
     xAxis: {
-        categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        categories: ['Esmaspäev', 'Teisipäev', 'Kolmapäev', 'Neljapäev', 'Reede', 'Laupäev', 'Pühapäev']
     },
     yAxis: {
         title: {
@@ -153,53 +178,31 @@ Highcharts.chart('chartContainer2', {
     plotOptions: {
         line: {
             dataLabels: {
-                enabled: true
+                enabled: false
             },
-            enableMouseTracking: false
-        },
-        area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
-                    },
-                    marker: {
-                        radius: 2
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
-                }
+            enableMouseTracking: true
+        }
     },
     series: [{
-        name: 'Yours',
-        type: 'column',
+        name: 'Keskmine',
         data:   [
                 <?php 
                 foreach($list3 as $value){
                 echo $value . ", ";
                 }?>
                 ]
+    }, {
+        name: 'Valitud nädal',
+        data: []
     }]
 });
 
 Highcharts.chart('chartContainer3', {
     chart: {
-        type: 'column'
+        type: 'line'
     },
     title: {
-        text: 'Electricity Usage by Time of Day'
+        text: 'Elektrikasutus päeva lõikes'
     },
     subtitle: {
         text: 'Source: You'
@@ -215,9 +218,9 @@ Highcharts.chart('chartContainer3', {
     plotOptions: {
         line: {
             dataLabels: {
-                enabled: true
+                enabled: false
             },
-            enableMouseTracking: false
+            enableMouseTracking: true
         }
     },
     series: [{
@@ -228,5 +231,21 @@ Highcharts.chart('chartContainer3', {
                 }?>
               ]
     }]
+});
+$('#weeklyButton').click(function () {
+    let yearselection = $("#yearSelect :selected").text();
+    let weekselection = $("#weekSelect :selected").text();
+$.ajax({
+      url: "getweek.php",
+      type: "POST",
+      data: {"year": yearselection, "week": weekselection},
+      dataType : "json",
+      success: function(msg){
+        weekchart.series[1].setData([msg[0], msg[1], msg[2], msg[3], msg[4], msg[5], msg[6]]);
+      },
+    error: function() { 
+        weekchart.series[1].setData();
+    }
+   })
 });
 </script>

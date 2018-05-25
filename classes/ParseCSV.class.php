@@ -2,7 +2,6 @@
     class CSV{
 
         function __construct($CSV){
-            $this->_CSV = $CSV;
             $this->file = fopen($CSV,"r");
         }
 
@@ -79,7 +78,7 @@
 
             }
             foreach($dayCount as $key=>$count){
-                $average[$key] = $dailyValues[$key]/$count;
+                $average[$key] = $dailyValues[$key]/$count*24;
             }
             return $average;
         }
