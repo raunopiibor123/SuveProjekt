@@ -26,8 +26,14 @@
     $list4 = $csvClass->getDailyValues();
 ?>
 <div class="container">
+<div class="jumbotron">
+    <h1>Raporti pealkiri</h1>
+    <p>Raporti kirjeldus.</p>
+</div>
 <div id="chartContainer1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<hr>
 <div id="chartContainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<hr>
 <div class="form-group">
 <div class="col-md-3">
   <label for="yearSelect">Vali aasta:</label>
@@ -50,6 +56,9 @@
 </div>
 </div>
 <div id="chartContainer2" style="min-width: 310px; height: 400px; margin: 0 auto; margin-top:100px; margin-bottom:100px;"></div>
+<hr>
+<label for="datepicker">Vali päev</label>
+<input type="text" class="form-control" id="datepicker" name="datepicker">
 <div id="chartContainer3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 </div>
 
@@ -197,7 +206,7 @@ let weekchart = Highcharts.chart('chartContainer2', {
     }]
 });
 
-Highcharts.chart('chartContainer3', {
+let daychart = Highcharts.chart('chartContainer3', {
     chart: {
         type: 'line'
     },
@@ -224,12 +233,15 @@ Highcharts.chart('chartContainer3', {
         }
     },
     series: [{
-        name: 'Yours',
+        name: 'Keskmine',
         data: [
                 <?php foreach($list4 as $value){
                     echo $value . ", ";
                 }?>
               ]
+            }, {
+        name: 'Valitud päev',
+        data: []
     }]
 });
 $('#weeklyButton').click(function () {
@@ -245,6 +257,23 @@ $.ajax({
       },
     error: function() { 
         weekchart.series[1].setData();
+    }
+   })
+});
+
+$('#datepicker').change(function () {
+    let dayselection = document.getElementById("datepicker").value;
+    console.log(dayselection)
+$.ajax({
+      url: "getday.php",
+      type: "POST",
+      data: {"day": dayselection},
+      dataType : "json",
+      success: function(msg){
+        daychart.series[1].setData([msg[0], msg[1], msg[2], msg[3], msg[4], msg[5], msg[6], msg[7], msg[8], msg[9], msg[10], msg[11], msg[12], msg[13], msg[14], msg[15], msg[16], msg[17], msg[18], msg[19], msg[20], msg[21], msg[22], msg[23]]);
+      },
+    error: function() { 
+        daychart.series[1].setData();
     }
    })
 });
