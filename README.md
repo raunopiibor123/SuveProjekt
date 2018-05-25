@@ -19,7 +19,10 @@ Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV faili
 * Bootstrap
 
 ## Ekraanitõmmis  
+![Kuvatõmmis_Raportitest.PNG](/Kuvatõmmis_Raportitest.PNG)
 
+## Mysql Tabel
+![mysql_tabel.PNG](/mysql_tabel.PNG)
 
 ## Info
 Webpage is about usage of electricity and how to be more environmentally friendly.
