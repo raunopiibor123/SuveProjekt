@@ -19,30 +19,37 @@
     createNewRaportModal();
 
     $notice = "";
-    $target_dir = "pics/";
-    $target_file = "";
+    $target_dir = "csv/";
+    $fileToUpload = "";
     $uploadOk = 1;
-    $database = "if17_heinhend";
+    $database = "if17_roheline";
+    $raportName = "";
+    $raportDesc = "";
+    $userid = $_SESSION["user_id"];
 
-    function saveIdea($target_file){
+    function saveFile($userid, $fileToUpload, $raportName, $raportDesc){
 		$notice = "";
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("INSERT INTO raportiteTabel (raportFile) VALUES (?)");
+		$stmt = $mysqli->prepare("INSERT INTO csv (userid, filename, title, description) VALUES (?, ?, ?, ?)");
 		echo $mysqli->error;
-		$stmt->bind_param("s", $target_file);
-		console.log($stmt->error);
+		$stmt->bind_param("isss", $userid, $tfileToUpload, $raportName, $raportDesc);
+		if($stmt->execute()){
+            $notice = "Kuulutus on salvestatud";
+        } else {
+            $notice = "Salvestamisel tekkis tõrge: " .$stmt->error;
+        }
 		$stmt->close();
 		$mysqli->close();
 		return $notice;
 	}
 
 
-    if (isset($_POST["submit"])) {
-		$timeStamp = microtime(1) *10000;
-		$target_file = $target_dir . "hmv_" .$timeStamp .".csv";
+    if (isset($_POST["createRaportButton"])) {
+		$timeStamp = microtime(1) * 10000;
+		$fileToUpload = $target_dir . "hmv_" .$timeStamp .".csv";
 		//$target_file_2 = $target_dir_2 . "hmv_" .$timeStamp ."." ."jpg";
 
-        if (file_exists($target_file)) {
+        if (file_exists($fileToUpload)) {
             echo "Sorry, file already exists.";
             $uploadOk = 0;
             }
@@ -51,13 +58,14 @@
             echo "Sorry, your file was not uploaded.";
         // if everything is ok, try to upload file
         } else {
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $fileToUpload)) {
                 echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
             } else {
                 echo "Sorry, there was an error uploading your file.";
             }
         }
-        saveIdea($target_file);
+        saveFile($userid, $fileToUpload, $raportName, $raportDesc);
+        echo $notice;
     }
     
 ?>
