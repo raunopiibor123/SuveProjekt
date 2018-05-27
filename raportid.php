@@ -32,7 +32,7 @@
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("INSERT INTO csv (userid, filename, title, description) VALUES (?, ?, ?, ?)");
 		echo $mysqli->error;
-		$stmt->bind_param("isss", $userid, $tfileToUpload, $raportName, $raportDesc);
+		$stmt->bind_param("isss", $userid, $fileToUpload, $raportName, $raportDesc);
 		if($stmt->execute()){
             $notice = "Kuulutus on salvestatud";
         } else {
@@ -65,7 +65,7 @@
             }
         }
         saveFile($userid, $fileToUpload, $raportName, $raportDesc);
-        echo $notice;
+
     }
     
 ?>
