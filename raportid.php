@@ -47,6 +47,8 @@
     if (isset($_POST["createRaportButton"])) {
 		$timeStamp = microtime(1) * 10000;
 		$fileToUpload = $target_dir . "hmv_" .$timeStamp .".csv";
+        $raportName = $_POST["raportName"];
+        $raportDesc = $_POST["raportDesc"];
 		//$target_file_2 = $target_dir_2 . "hmv_" .$timeStamp ."." ."jpg";
 
         if (file_exists($fileToUpload)) {
