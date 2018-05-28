@@ -19,16 +19,37 @@
     createNewRaportModal();
     
     require_once("classes/ParseCSV.class.php");
-    $csvClass = new CSV("csv/tarbimisteatis.csv");
+
+    $rId = $_GET["rId"];
+    //$filename = substr($rId,4);
+    //$csvClass = new CSV("csv/tarbimisteatis.csv");
+    $csvClass = new CSV($rId);
     $list = $csvClass->getMonthlyValues("2017");
     $list2 = $csvClass->getYearlyValues();
     $list3 = $csvClass->getWeeklyValues();
     $list4 = $csvClass->getDailyValues();
+
+
+    $target_dir = "csv/";
+    $database = "if17_roheline";
+    $userid = $_SESSION["user_id"];
+
+    // ANDMEBAASIST LUGEMINE
+        $conn = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
+        $sql = "SELECT title, description FROM csv WHERE filename='$rId'";
+        //$conn->bind_param("i", $_SESSION['userId']);
+        $query = mysqli_query($conn, $sql);
+        $conn->close();
 ?>
 <div class="container">
 <div class="jumbotron">
-    <h1>Raporti pealkiri</h1>
-    <p>Raporti kirjeldus.</p>
+    <?php
+    while ($row = mysqli_fetch_array($query))
+    {
+    echo '<h1>' .$row['title'].'</h1>
+    <p>' .$row['description']. '</p>';
+    }
+    ?>
 </div>
 <div id="chartContainer1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <hr>

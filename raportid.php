@@ -70,6 +70,12 @@
 
     }
     
+    // ANDMEBAASIST LUGEMINE
+	$conn = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
+		$sql = "SELECT filename, title, description FROM csv WHERE userid='$userid'";
+		//$conn->bind_param("i", $_SESSION['userId']);
+		$query = mysqli_query($conn, $sql);
+		$conn->close();
 ?>
 <head>
 <link type="text/css" rel="stylesheet" href="css/main.css"/>
@@ -85,7 +91,19 @@
 	    </tr>
 	</thead>
     <tbody>
-        <tr>
+        <?php
+		
+		
+		while ($row = mysqli_fetch_array($query))
+		{
+			echo '' .'<tr>
+					<td><a href="raport.php?rId=' .$row['filename'].'"> Raport </a></td>
+					<td>'.$row['title'].'</td>
+					<td>'.$row['description'].'</td>
+				</tr>';
+		}?>
+        <!--
+            <tr>
             <td>
                 <a href="raport.php?rId=1">Raport 1</a><br>
             </td>
@@ -129,6 +147,7 @@
                 Desc 4
             </td>
         </tr>
+        -->
     </tbody>
 </table>
     <button type="button" class="btn btn-primary btn-md" style="margin-top:4px" data-toggle="modal" data-target="#newRaportModal1">Create New</button>
