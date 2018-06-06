@@ -65,6 +65,7 @@
 </div>
 
 <script>
+let file = '<?php echo $rId; ?>';
 Highcharts.chart('chartContainer', {
     chart: {
         type: 'line'
@@ -251,14 +252,14 @@ $('#datepicker1').change(function () {
 $.ajax({
       url: "getweek.php",
       type: "POST",
-      data: {"week": weekselection},
+      data: {"week": weekselection, "file": file},
       dataType : "json",
       success: function(msg){
         weekchart.series[1].setData([msg[0], msg[1], msg[2], msg[3], msg[4], msg[5], msg[6]]);
       },
-    error: function() { 
-        weekchart.series[1].setData();
-    }
+        error: function() { 
+            weekchart.series[1].setData();
+        }
    })
 });
 
@@ -268,14 +269,14 @@ $('#datepicker').change(function () {
 $.ajax({
       url: "getday.php",
       type: "POST",
-      data: {"day": dayselection},
+      data: {"day": dayselection, "file": file},
       dataType : "json",
       success: function(msg){
         daychart.series[1].setData([msg[0], msg[1], msg[2], msg[3], msg[4], msg[5], msg[6], msg[7], msg[8], msg[9], msg[10], msg[11], msg[12], msg[13], msg[14], msg[15], msg[16], msg[17], msg[18], msg[19], msg[20], msg[21], msg[22], msg[23]]);
       },
-    error: function() { 
-        daychart.series[1].setData();
-    }
+        error: function() { 
+            daychart.series[1].setData();
+        }
    })
 });
 </script>

@@ -1,6 +1,7 @@
 <?php
 $chosenDate = $_REQUEST["week"];
-$file = fopen("csv/tarbimisteatis.csv","r");
+$filerequest = $_REQUEST["file"];
+$file = fopen($filerequest,"r");
 $weekDays = array(1, 2, 3, 4, 5, 6, 7);
             $dailyValues = array(0, 0, 0, 0, 0, 0, 0);
             fseek($file, 0);

@@ -1,6 +1,7 @@
 <?php
 $day = $_REQUEST["day"];
-$file = fopen("csv/tarbimisteatis.csv","r");
+$filerequest = $_REQUEST["file"];
+$file = fopen($filerequest,"r");
             $times = array('00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23');
             $hourlyValues = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             $hourCount = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
