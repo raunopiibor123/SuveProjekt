@@ -73,9 +73,6 @@ Highcharts.chart('chartContainer', {
     title: {
         text: 'Elektrikasutus kuude lõikes'
     },
-    subtitle: {
-        text: 'Source: You'
-    },
     xAxis: {
         categories: ['Jaanuar', 'Veebruar', 'Märts', 'Aprill', 'Mai', 'Juuni', 'Juuli', 'August', 'September', 'Oktoober', 'November', 'Detsember']
     },
@@ -156,7 +153,7 @@ Highcharts.chart('chartContainer1', {
                 }
     },
     series: [{
-        name: 'Yours',
+        name: 'Teie elektrikasutus',
         type: 'column',
         data:   [
                 <?php 
@@ -175,9 +172,6 @@ let weekchart = Highcharts.chart('chartContainer2', {
     
     title: {
         text: 'Elektrikasutus nädala lõikes'
-    },
-    subtitle: {
-        text: 'Source: CSV'
     },
     xAxis: {
         categories: ['Esmaspäev', 'Teisipäev', 'Kolmapäev', 'Neljapäev', 'Reede', 'Laupäev', 'Pühapäev']
@@ -215,9 +209,6 @@ let daychart = Highcharts.chart('chartContainer3', {
     },
     title: {
         text: 'Elektrikasutus päeva lõikes'
-    },
-    subtitle: {
-        text: 'Source: You'
     },
     xAxis: {
         categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
