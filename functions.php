@@ -7,7 +7,10 @@
  *
  * @category Tarkvaraarenduse_Praktika
  * @package  Roheline
- * @author   Rasmus Kello <rasmus.kello@tlu.ee>
+ * @author   Rauno Piibor
+ * @author   Hendrik Heinsar
+ * @author   Elinor Roosalu
+ * @author   Krister Riska
  * @license  [https://opensource.org/licenses/MIT] [MIT]
  * @link     ...
  */
