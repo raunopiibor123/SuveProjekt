@@ -79,7 +79,7 @@ while ($row = mysqli_fetch_array($query)) {
 <h1>Aasta kohta</h1>
 <div id="chartContainer1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <hr>
-<h1>Aastate lõikes</h1>
+<h1>Aasta lõikes</h1>
 <div id="chartContainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <hr>
 <h1>Nädala lõikes</h1>
