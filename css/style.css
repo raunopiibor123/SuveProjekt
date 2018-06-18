@@ -5,3 +5,8 @@ body {
 .navbar-inverse{
     opacity:0.9;
 }
+.editable{
+    cursor: text;
+    border: 1px double #aaa;
+    background: whitesmoke;
+}

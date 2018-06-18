@@ -1,16 +1,29 @@
 <?php
+
+/**
+ * This file creates the index page when user is not logged in
+ *
+ * PHP version 5.6.30-0+deb8u1
+ *
+ * @category Tarkvaraarenduse_Praktika
+ * @package  Roheline
+ * @author   Rasmus Kello <rasmus.kello@tlu.ee>
+ * @license  [https://opensource.org/licenses/MIT] [MIT]
+ * @link     ...
+ */
+
 session_start();
-require_once("functions.php");
-if(isset($_SESSION["user_id"])){
+require_once "functions.php";
+if (isset($_SESSION["user_id"])) {
     header("Location: main.php");
     exit();
 }
 
-require_once("classes/Useractions.class.php");
+require_once "classes/Useractions.class.php";
 $Register = new UserActions();
 
 if (isset($_POST["signupButton"])) {
-    if(isset($_POST["signupEmail"]) && isset ($_POST["signupOrganization"]) && isset ($_POST["signupPassword"])){
+    if (isset($_POST["signupEmail"]) && isset($_POST["signupOrganization"]) && isset($_POST["signupPassword"])) {
         $registerEmail = test_input($_POST['signupEmail']);
         $registerPassword = test_input($_POST['signupPassword']);
         $registerOrganization = test_input($_POST['signupOrganization']);
@@ -19,18 +32,18 @@ if (isset($_POST["signupButton"])) {
     }
 }
 if (isset($_POST["signinButton"])) {
-    if (isset ($_POST["loginEmail"]) && isset ($_POST["loginPassword"])) {
+    if (isset($_POST["loginEmail"]) && isset($_POST["loginPassword"])) {
         $loginEmail = test_input($_POST['loginEmail']);
         $loginPassword = test_input($_POST['loginPassword']);
         $Register->login($loginEmail, $loginPassword);
         header("Location: main.php");
         exit();
-        } else {
-            echo 'Invalid login';
-        }
+    } else {
+        echo 'Invalid login';
+    }
 }
 
-require_once("elements.php");
+require_once "elements.php";
 createHeader("Main Page");
 createNavbar();
 createRegisterModal();

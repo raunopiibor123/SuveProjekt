@@ -1,64 +1,93 @@
 <?php
-	session_start();
-    require("config.php");
 
-	if(!isset($_SESSION["user_id"])){
-		header("Location: index.php");
-		exit();
-	}
+/**
+ * This file creates the raport view when user selects a raport from the list
+ *
+ * PHP version 5.6.30-0+deb8u1
+ *
+ * @category Tarkvaraarenduse_Praktika
+ * @package  Roheline
+ * @author   Rasmus Kello <rasmus.kello@tlu.ee>
+ * @license  [https://opensource.org/licenses/MIT] [MIT]
+ * @link     ...
+ */
 
-	if(isset($_GET["logout"])){
-		session_destroy();
-		header("Location: login.php");
-		exit();
-	}
+session_start();
+require "config.php";
 
-	require_once("elements.php");
-	createHeader("Raport");
-    createNavbar();
-    createNewRaportModal();
-    
-    require_once("classes/ParseCSV.class.php");
+if (!isset($_SESSION["user_id"])) {
+    header("Location: index.php");
+    exit();
+}
 
-    $rId = $_GET["rId"];
-    //$filename = substr($rId,4);
-    //$csvClass = new CSV("csv/tarbimisteatis.csv");
-    $csvClass = new CSV($rId);
-    $list = $csvClass->getMonthlyValues("2017");
-    $list2 = $csvClass->getYearlyValues();
-    $list3 = $csvClass->getWeeklyValues();
-    $list4 = $csvClass->getDailyValues();
+if (isset($_GET["logout"])) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
 
+require_once "elements.php";
+createHeader("Raport");
+createNavbar();
+createNewRaportModal();
 
-    $target_dir = "csv/";
-    $database = "if17_roheline";
-    $userid = $_SESSION["user_id"];
+require_once "classes/ParseCSV.class.php";
 
-    // ANDMEBAASIST LUGEMINE
-        $conn = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
-        $sql = "SELECT title, description FROM csv WHERE filename='$rId'";
-        //$conn->bind_param("i", $_SESSION['userId']);
-        $query = mysqli_query($conn, $sql);
-        $conn->close();
+$rId = $_GET["rId"];
+//$filename = substr($rId,4);
+//$csvClass = new CSV("csv/tarbimisteatis.csv");
+$csvClass = new CSV($rId);
+$list = $csvClass->getMonthlyValues("2017");
+$list2 = $csvClass->getYearlyValues();
+$list3 = $csvClass->getWeeklyValues();
+$list4 = $csvClass->getDailyValues();
+
+$target_dir = "csv/";
+$database = "if17_roheline";
+$userid = $_SESSION["user_id"];
+
+// ANDMEBAASIST LUGEMINE
+$conn = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
+$sql = "SELECT id, title, description FROM csv WHERE filename='$rId'";
+//$conn->bind_param("i", $_SESSION['userId']);
+$query = mysqli_query($conn, $sql);
+$conn->close();
 ?>
+<script>
+function saveToDatabase(editableObj,column,id) {
+    $.ajax({
+        url: "updateNameDesc.php",
+        type: "POST",
+        data:'column='+column+'&editval='+editableObj.innerHTML+'&id='+id,
+        success: function(data){
+            
+        }
+   });
+}
+</script>
 <div class="container">
 <div class="jumbotron">
-    <?php
-    while ($row = mysqli_fetch_array($query))
-    {
-    echo '<h1>' .$row['title'].'</h1>
-    <p>' .$row['description']. '</p>';
-    }
-    ?>
+<?php
+while ($row = mysqli_fetch_array($query)) {
+    echo '
+    <h1 contenteditable="true" class="editable" onBlur="saveToDatabase(this,\'title\',' . $row["id"] . ')">' . $row['title'] . '</h1>
+    <p contenteditable="true" class="editable" onBlur="saveToDatabase(this,\'description\',' . $row["id"] . ')">' . $row['description'] . '</p>
+    ';
+}
+?>
 </div>
+<h1>Aasta kohta</h1>
 <div id="chartContainer1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <hr>
+<h1>Aastate lõikes</h1>
 <div id="chartContainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <hr>
+<h1>Nädala lõikes</h1>
 <label for="datepicker1">Vali nädal(ükskõik milline päev)</label>
 <input type="text" class="form-control" id="datepicker1" name="datepicker1">
 <div id="chartContainer2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <hr>
+<h1>Päeva lõikes</h1>
 <label for="datepicker">Vali kuupäev</label>
 <input type="text" class="form-control" id="datepicker" name="datepicker">
 <div id="chartContainer3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
@@ -92,9 +121,10 @@ Highcharts.chart('chartContainer', {
     series: [{
         name: 'Keskmine',
         data: [
-                <?php foreach($list as $value){
-                    echo $value . ", ";
-                }?>
+<?php foreach ($list as $value) {
+    echo $value . ", ";
+}
+?>
               ]
     }]
 });
@@ -104,15 +134,15 @@ Highcharts.chart('chartContainer1', {
         zoomType: 'x'
     },
     title: {
-        text: 'Elektrikasutus aastate lõikes'
+        text: 'Elektrikasutus aasta kohta'
     },
     xAxis: {
-        categories: [                
-                <?php 
-                $valueArray = $list2[1];
-                foreach($valueArray as $value){
-                echo $value . ", ";
-                }?>
+        categories: [
+<?php
+$valueArray = $list2[1];
+foreach ($valueArray as $value) {
+    echo $value . ", ";
+}?>
                 ]
     },
     yAxis: {
@@ -156,11 +186,11 @@ Highcharts.chart('chartContainer1', {
         name: 'Teie elektrikasutus',
         type: 'column',
         data:   [
-                <?php 
-                $valueArray = $list2[0];
-                foreach($valueArray as $value){
-                echo $value . ", ";
-                }?>
+<?php
+$valueArray = $list2[0];
+foreach ($valueArray as $value) {
+    echo $value . ", ";
+}?>
                 ]
     }]
 });
@@ -169,7 +199,7 @@ let weekchart = Highcharts.chart('chartContainer2', {
     chart: {
         type: 'line'
     },
-    
+
     title: {
         text: 'Elektrikasutus nädala lõikes'
     },
@@ -192,10 +222,10 @@ let weekchart = Highcharts.chart('chartContainer2', {
     series: [{
         name: 'Keskmine',
         data:   [
-                <?php 
-                foreach($list3 as $value){
-                echo $value . ", ";
-                }?>
+<?php
+foreach ($list3 as $value) {
+    echo $value . ", ";
+}?>
                 ]
     }, {
         name: 'Valitud nädal',
@@ -229,9 +259,9 @@ let daychart = Highcharts.chart('chartContainer3', {
     series: [{
         name: 'Keskmine',
         data: [
-                <?php foreach($list4 as $value){
-                    echo $value . ", ";
-                }?>
+<?php foreach ($list4 as $value) {
+    echo $value . ", ";
+}?>
               ]
             }, {
         name: 'Valitud päev',
@@ -248,7 +278,7 @@ $.ajax({
       success: function(msg){
         weekchart.series[1].setData([msg[0], msg[1], msg[2], msg[3], msg[4], msg[5], msg[6]]);
       },
-        error: function() { 
+        error: function() {
             weekchart.series[1].setData();
         }
    })
@@ -265,7 +295,7 @@ $.ajax({
       success: function(msg){
         daychart.series[1].setData([msg[0], msg[1], msg[2], msg[3], msg[4], msg[5], msg[6], msg[7], msg[8], msg[9], msg[10], msg[11], msg[12], msg[13], msg[14], msg[15], msg[16], msg[17], msg[18], msg[19], msg[20], msg[21], msg[22], msg[23]]);
       },
-        error: function() { 
+        error: function() {
             daychart.series[1].setData();
         }
    })

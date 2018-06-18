@@ -1,23 +1,36 @@
 <?php
-	session_start();
-	require_once("classes/Useractions.class.php");
-	$info = new UserActions();
-	require("config.php");
 
-	if(!isset($_SESSION["user_id"])){
-		header("Location: index.php");
-		exit();
-	}
+/**
+ * This file creates the main page when user is logged in
+ *
+ * PHP version 5.6.30-0+deb8u1
+ *
+ * @category Tarkvaraarenduse_Praktika
+ * @package  Roheline
+ * @author   Rasmus Kello <rasmus.kello@tlu.ee>
+ * @license  [https://opensource.org/licenses/MIT] [MIT]
+ * @link     ...
+ */
 
-	if(isset($_GET["logout"])){
-		session_destroy();
-		header("Location: login.php");
-		exit();
-	}
+session_start();
+require_once "classes/Useractions.class.php";
+$info = new UserActions();
+require "config.php";
 
-	require_once("elements.php");
-	createHeader("Main Page");
-	createNavbar();
+if (!isset($_SESSION["user_id"])) {
+    header("Location: index.php");
+    exit();
+}
+
+if (isset($_GET["logout"])) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
+
+require_once "elements.php";
+createHeader("Main Page");
+createNavbar();
 ?>
 <!DOCTYPE html>
 <html>

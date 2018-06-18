@@ -1,5 +1,4 @@
 <?php
-	$serverHost = "localhost";
-	$serverUsername = "if17";
-	$serverPassword = "if17";
-?>
+$serverHost = "localhost";
+$serverUsername = "if17";
+$serverPassword = "if17";

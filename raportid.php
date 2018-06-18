@@ -1,81 +1,94 @@
 <?php
-	session_start();
-	require("config.php");
 
-	if(!isset($_SESSION["user_id"])){
-		header("Location: index.php");
-		exit();
-	}
+/**
+ * This file creates the view of all raports for current user
+ *
+ * PHP version 5.6.30-0+deb8u1
+ *
+ * @category Tarkvaraarenduse_Praktika
+ * @package  Roheline
+ * @author   Rasmus Kello <rasmus.kello@tlu.ee>
+ * @license  [https://opensource.org/licenses/MIT] [MIT]
+ * @link     ...
+ */
 
-	if(isset($_GET["logout"])){
-		session_destroy();
-		header("Location: login.php");
-		exit();
-	}
+session_start();
+require "config.php";
 
-	require_once("elements.php");
-	createHeader("Raport");
-    createNavbar();
-    createNewRaportModal();
+if (!isset($_SESSION["user_id"])) {
+    header("Location: index.php");
+    exit();
+}
 
+if (isset($_GET["logout"])) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
+
+require_once "elements.php";
+createHeader("Raport");
+createNavbar();
+createNewRaportModal();
+
+$notice = "";
+$target_dir = "csv/";
+$fileToUpload = "";
+$uploadOk = 1;
+$database = "if17_roheline";
+$raportName = "";
+$raportDesc = "";
+$userid = $_SESSION["user_id"];
+
+function saveFile($userid, $fileToUpload, $raportName, $raportDesc)
+{
     $notice = "";
-    $target_dir = "csv/";
-    $fileToUpload = "";
-    $uploadOk = 1;
-    $database = "if17_roheline";
-    $raportName = "";
-    $raportDesc = "";
-    $userid = $_SESSION["user_id"];
-
-    function saveFile($userid, $fileToUpload, $raportName, $raportDesc){
-		$notice = "";
-		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("INSERT INTO csv (userid, filename, title, description) VALUES (?, ?, ?, ?)");
-		echo $mysqli->error;
-		$stmt->bind_param("isss", $userid, $fileToUpload, $raportName, $raportDesc);
-		if($stmt->execute()){
-            $notice = "Kuulutus on salvestatud";
-        } else {
-            $notice = "Salvestamisel tekkis tõrge: " .$stmt->error;
-        }
-		$stmt->close();
-		$mysqli->close();
-		return $notice;
-	}
-
-
-    if (isset($_POST["createRaportButton"])) {
-		$timeStamp = microtime(1) * 10000;
-		$fileToUpload = $target_dir . "hmv_" .$timeStamp .".csv";
-        $raportName = $_POST["raportName"];
-        $raportDesc = $_POST["raportDesc"];
-		//$target_file_2 = $target_dir_2 . "hmv_" .$timeStamp ."." ."jpg";
-
-        if (file_exists($fileToUpload)) {
-            echo "Sorry, file already exists.";
-            $uploadOk = 0;
-            }
-        // Check if $uploadOk is set to 0 by an error
-        if ($uploadOk == 0) {
-            echo "Sorry, your file was not uploaded.";
-        // if everything is ok, try to upload file
-        } else {
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $fileToUpload)) {
-                echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-            } else {
-                echo "Sorry, there was an error uploading your file.";
-            }
-        }
-        saveFile($userid, $fileToUpload, $raportName, $raportDesc);
-
+    $mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
+    $stmt = $mysqli->prepare("INSERT INTO csv (userid, filename, title, description) VALUES (?, ?, ?, ?)");
+    echo $mysqli->error;
+    $stmt->bind_param("isss", $userid, $fileToUpload, $raportName, $raportDesc);
+    if ($stmt->execute()) {
+        $notice = "Kuulutus on salvestatud";
+    } else {
+        $notice = "Salvestamisel tekkis tõrge: " . $stmt->error;
     }
-    
-    // ANDMEBAASIST LUGEMINE
-	$conn = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
-		$sql = "SELECT filename, title, description FROM csv WHERE userid='$userid'";
-		//$conn->bind_param("i", $_SESSION['userId']);
-		$query = mysqli_query($conn, $sql);
-		$conn->close();
+    $stmt->close();
+    $mysqli->close();
+    return $notice;
+}
+
+if (isset($_POST["createRaportButton"])) {
+    $timeStamp = microtime(1) * 10000;
+    $fileToUpload = $target_dir . "hmv_" . $timeStamp . ".csv";
+    $raportName = $_POST["raportName"];
+    $raportDesc = $_POST["raportDesc"];
+    //$target_file_2 = $target_dir_2 . "hmv_" .$timeStamp ."." ."jpg";
+
+    if (file_exists($fileToUpload)) {
+        echo "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $fileToUpload)) {
+            echo "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
+    saveFile($userid, $fileToUpload, $raportName, $raportDesc);
+
+}
+
+// ANDMEBAASIST LUGEMINE
+$conn = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
+$sql = "SELECT filename, title, description FROM csv WHERE userid='$userid'";
+//$conn->bind_param("i", $_SESSION['userId']);
+$query = mysqli_query($conn, $sql);
+$conn->close();
 ?>
 <head>
 <link type="text/css" rel="stylesheet" href="css/main.css"/>
@@ -87,21 +100,19 @@
 	    <tr>
 		    <th>Link</th>
 			<th>Name</th>
-			<th>Description</th>				
+			<th>Description</th>
 	    </tr>
 	</thead>
     <tbody>
         <?php
-		
-		
-		while ($row = mysqli_fetch_array($query))
-		{
-			echo '' .'<tr>
-					<td><a href="raport.php?rId=' .$row['filename'].'"> Raport </a></td>
-					<td>'.$row['title'].'</td>
-					<td>'.$row['description'].'</td>
+
+while ($row = mysqli_fetch_array($query)) {
+    echo '' . '<tr>
+					<td><a href="raport.php?rId=' . $row['filename'] . '"> Raport </a></td>
+					<td>' . $row['title'] . '</td>
+					<td>' . $row['description'] . '</td>
 				</tr>';
-		}?>
+}?>
         <!--
             <tr>
             <td>
