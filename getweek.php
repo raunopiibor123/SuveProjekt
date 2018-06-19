@@ -21,7 +21,6 @@ fseek($file, 0);
 while (!feof($file)) {
     $array = fgetcsv($file, 0, ";");
     $date = (substr($array[0], 0, 10));
-    //echo $date;
     $chosenYear = date("Y", strtotime($chosenDate));
     $chosenWeek = date("W", strtotime($chosenDate));
     $weekDay = date("N", strtotime($date));

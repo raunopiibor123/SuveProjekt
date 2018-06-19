@@ -41,6 +41,8 @@ $list = $csvClass->getMonthlyValues("2017");
 $list2 = $csvClass->getYearlyValues();
 $list3 = $csvClass->getWeeklyValues();
 $list4 = $csvClass->getDailyValues();
+$list5 = $csvClass->getMonthlyDailyValues("2017", "12");
+$list6 = $csvClass->getMonthlyMarketPrices("2017");
 
 $target_dir = "csv/";
 $database = "if17_roheline";
@@ -82,6 +84,11 @@ while ($row = mysqli_fetch_array($query)) {
 <h1>Aasta lõikes</h1>
 <div id="chartContainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <hr>
+<h1>Kuu lõikes</h1>
+<label for="datepicker2">Vali kuu(ükskõik milline päev)</label>
+<input type="text" class="form-control" id="datepicker2" name="datepicker2">
+<div id="chartContainer4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<hr>
 <h1>Nädala lõikes</h1>
 <label for="datepicker1">Vali nädal(ükskõik milline päev)</label>
 <input type="text" class="form-control" id="datepicker1" name="datepicker1">
@@ -119,7 +126,7 @@ Highcharts.chart('chartContainer', {
         }
     },
     series: [{
-        name: 'Keskmine',
+        name: 'Kokku',
         data: [
 <?php foreach ($list as $value) {
     echo $value . ", ";
@@ -183,7 +190,7 @@ foreach ($valueArray as $value) {
                 }
     },
     series: [{
-        name: 'Teie elektrikasutus',
+        name: 'Kokku',
         type: 'column',
         data:   [
 <?php
@@ -268,6 +275,44 @@ let daychart = Highcharts.chart('chartContainer3', {
         data: []
     }]
 });
+let monthchart = Highcharts.chart('chartContainer4', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: 'Elektrikasutus kuu lõikes'
+    },
+    xAxis: {
+        categories: [
+<?php foreach ($list5 as $key => $value) {
+    echo $key+1 . ", ";
+}
+?>
+        ]
+    },
+    yAxis: {
+        title: {
+            text: 'KW'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: false
+            },
+            enableMouseTracking: true
+        }
+    },
+    series: [{
+        name: 'Kokku',
+        data: [
+<?php foreach ($list5 as $value) {
+    echo $value . ", ";
+}
+?>
+              ]
+    }]
+});
 $('#datepicker1').change(function () {
     let weekselection = document.getElementById("datepicker1").value;
 $.ajax({
@@ -297,6 +342,22 @@ $.ajax({
       },
         error: function() {
             daychart.series[1].setData();
+        }
+   })
+});
+
+$('#datepicker2').change(function () {
+    let dateselection = document.getElementById("datepicker2").value;
+$.ajax({
+      url: "getmonth.php",
+      type: "POST",
+      data: {"date": dateselection, "file": file},
+      dataType : "json",
+      success: function(msg){
+        monthchart.series[0].setData([msg[0], msg[1], msg[2], msg[3], msg[4], msg[5], msg[6], msg[7], msg[8], msg[9], msg[10], msg[11], msg[12], msg[13], msg[14], msg[15], msg[16], msg[17], msg[18], msg[19], msg[20], msg[21], msg[22], msg[23], msg[24], msg[25], msg[26], msg[27], msg[28], msg[29], msg[30], msg[31]]);
+      },
+        error: function() {
+            monthchart.series[0].setData();
         }
    })
 });

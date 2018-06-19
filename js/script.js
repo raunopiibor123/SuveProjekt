@@ -11,5 +11,8 @@ $(document).ready(function() {
     $( function() {
         $( "#datepicker1" ).datepicker({ dateFormat: 'dd.mm.yy', firstDay: 1 });
     });
+    $( function() {
+        $( "#datepicker2" ).datepicker({ dateFormat: 'dd.mm.yy', firstDay: 1 });
+    });
 
 });
