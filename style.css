@@ -1,0 +1,17 @@
+body {
+    font-family: 'Old Standard TT', serif;
+    margin-top:100px;
+}
+.navbar-inverse{
+    opacity:0.9;
+}
+.editable{
+    cursor: text;
+    border: 1px double #aaa;
+    background: whitesmoke;
+}
+
+
+tr:hover{
+    background: purple
+}
