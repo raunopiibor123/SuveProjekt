@@ -2,10 +2,10 @@
 # SuveProjekt Praktika
 
 ## Eesmärk  
-Põhieesmärk: Klientidele luua veebileht, kus peal saab ta arvutada haridusasutuse elektritarbimist aasta/kuu/päeva/nädala lõikes.
+Põhieesmärk: Klientidele luua veebileht, kus peal saab ta arvutada haridusasutuse elektritarbimist aasta/kuu/nädala/päeva lõikes.
 
 ## Kirjeldus  
-Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV faili või täita vormid kuude kaupa elektritarbimise kohta ning seejärel vaadata raportit, mida saab ta ka visuaaliseeritud kujul vaadata. //*Kliendile antakse ka tagasisidet haridusasutuse elektritarbimise kohta vastatud küsimuste põhjal.//*
+Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV faili ning veebileht töötleb sisestatud faili ära. Kasutajale kuvatakse diagrammid, kust ta saab vaadata elektritarbimist ning olenevalt diagrammist saab ta ka muuta vahemikke.
 
 ## Liikmed
 * Krister Riska
@@ -48,3 +48,5 @@ After creating an account and logging in user will go to main page where they ca
 23.03.18 log in and sign up pages
 
 30.03.18 questions template
+
+ * @license  [https://opensource.org/licenses/MIT] [MIT]
