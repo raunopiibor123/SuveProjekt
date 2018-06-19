@@ -5,7 +5,7 @@
 Põhieesmärk: Klientidele luua veebileht, kus peal saab ta arvutada haridusasutuse elektritarbimist aasta/kuu/nädala/päeva lõikes.
 
 ## Kirjeldus  
-Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV faili ning veebileht töötleb sisestatud faili ära. Kasutajale kuvatakse diagrammid, kust ta saab vaadata elektritarbimist ning olenevalt diagrammist saab ta ka muuta vahemikke.
+Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV(failis tuleb ära kustutada esimesed 5 rida, et faili esimene rida oleksid andmed) faili ning veebileht töötleb sisestatud faili ära. Kasutajale kuvatakse diagrammid, kust ta saab vaadata elektritarbimist ning olenevalt diagrammist saab ta ka muuta vahemikke. 
 
 ## Liikmed
 * Krister Riska
@@ -51,10 +51,9 @@ Sign up page:
 Log in page:
 1. E-mail
 2. Password
-3. Forgot password
 
 First page is log in page. From log in page you can go to sign up page where is possible to register an account.
-After creating an account and logging in user will go to main page where they can see some basic tips how to be more environmentally friendly. In main page they can go either questions page, see their previously made PDF-forms/results or statistics. After filling out and submiting questions they get their results and tips in PDF.
+After logging in you can watch your previous raports or create a new one. If client wants to create new raport then he must upload CSV file which consists of electricity usage data. After uploading you can watch diagramms of the electricity usage.
 
 ## Deadlines
 
