@@ -25,6 +25,19 @@ Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV faili
 ## Mysql Tabel
 ![mysql_tabel.PNG](/mysql_tabel.PNG)
 
+CREATE TABLE IF NOT EXISTS 'schools'(
+	'id' int(11) NOT NULL,
+	'school_name' varchar(100) NOT NULL
+	)ENGINE=InnoDB AUTO_INVREMENT=5 DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS 'users' (
+	'id' int(7) NOT NULL
+	'email' varchar(100) NOT NULL,
+	'password' varchar(128= NOT NULL,
+	'school' int(11) NOT NULL,
+	'created' timestamp NOT NULL DEFAULT current_timestamp()
+	)ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+
 ## Info
 Webpage is about usage of electricity and how to be more environmentally friendly.
 
