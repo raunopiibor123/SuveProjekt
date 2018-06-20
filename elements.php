@@ -27,12 +27,14 @@ function createHeader($siteTitle)
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <link rel="stylesheet" href="css/swiper.min.css">
         <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT" rel="stylesheet">
         <script src="js/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
         <script src="js/script.js"></script>
     </head>
@@ -43,6 +45,7 @@ function createHeader($siteTitle)
 function createFooter()
 {
     echo '
+    <script src="js/swiper.min.js"></script>
     </body>
 </html>
     ';

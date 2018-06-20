@@ -22,9 +22,6 @@ Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV(faili
 ## Ekraanitõmmis  
 ![Kuvatõmmis_Raportitest.PNG](/Kuvatõmmis_Raportitest.PNG)
 
-## Mysql Tabel
-![mysql_tabel.PNG](/mysql_tabel.PNG)
-
 CREATE TABLE IF NOT EXISTS 'schools'(
 	'id' int(11) NOT NULL,
 	'school_name' varchar(100) NOT NULL
@@ -37,6 +34,16 @@ CREATE TABLE IF NOT EXISTS 'users' (
 	'school' int(11) NOT NULL,
 	'created' timestamp NOT NULL DEFAULT current_timestamp()
 	)ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS 'csv' (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`userid` int(11) NOT NULL,
+	`filename` varchar(100) NOT NULL,
+	`title` varchar(100) NOT NULL,
+	`description` varchar(500) NOT NULL,
+	`created` timestamp NOT NULL DEFAULT current_timestamp(),
+	PRIMARY KEY (`id`)
+	) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1
 
 ## Info
 Webpage is about usage of electricity and how to be more environmentally friendly.
@@ -52,13 +59,7 @@ Log in page:
 1. E-mail
 2. Password
 
-First page is log in page. From log in page you can go to sign up page where is possible to register an account.
+First page is log in page. From log in page you can go to sign up page where it is possible to register an account.
 After logging in you can watch your previous raports or create a new one. If client wants to create new raport then he must upload CSV file which consists of electricity usage data. After uploading you can watch diagramms of the electricity usage.
-
-## Deadlines
-
-23.03.18 log in and sign up pages
-
-30.03.18 questions template
 
  * @license  [https://opensource.org/licenses/MIT] [MIT]
