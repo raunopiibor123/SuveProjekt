@@ -18,6 +18,8 @@ Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV(faili
 * Jquery
 * Highcharts
 * Bootstrap
+* Swiper
+* GSAP
 
 ## Ekraanitõmmis  
 ![Kuvatõmmis_Raportitest.PNG](/Kuvatõmmis_Raportitest.PNG)
