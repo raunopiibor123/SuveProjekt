@@ -24,13 +24,14 @@ Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV(faili
 ## Ekraanitõmmis  
 ![Kuvatõmmis_Raportitest.PNG](/Kuvatõmmis_Raportitest.PNG)
 
-'''
+```
 CREATE TABLE IF NOT EXISTS 'schools'(
 	'id' int(11) NOT NULL,
 	'school_name' varchar(100) NOT NULL
 	)ENGINE=InnoDB AUTO_INVREMENT=5 DEFAULT CHARSET=latin1;
-'''
+```
 
+```
 CREATE TABLE IF NOT EXISTS 'users' (
 	'id' int(7) NOT NULL
 	'email' varchar(100) NOT NULL,
@@ -38,7 +39,9 @@ CREATE TABLE IF NOT EXISTS 'users' (
 	'school' int(11) NOT NULL,
 	'created' timestamp NOT NULL DEFAULT current_timestamp()
 	)ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+```
 
+```
 CREATE TABLE IF NOT EXISTS 'csv' (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`userid` int(11) NOT NULL,
@@ -48,6 +51,7 @@ CREATE TABLE IF NOT EXISTS 'csv' (
 	`created` timestamp NOT NULL DEFAULT current_timestamp(),
 	PRIMARY KEY (`id`)
 	) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1
+```
 
 ## Info
 Webpage is about usage of electricity and how to be more environmentally friendly.
