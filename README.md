@@ -24,10 +24,12 @@ Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV(faili
 ## Ekraanitõmmis  
 ![Kuvatõmmis_Raportitest.PNG](/Kuvatõmmis_Raportitest.PNG)
 
+'''
 CREATE TABLE IF NOT EXISTS 'schools'(
 	'id' int(11) NOT NULL,
 	'school_name' varchar(100) NOT NULL
 	)ENGINE=InnoDB AUTO_INVREMENT=5 DEFAULT CHARSET=latin1;
+'''
 
 CREATE TABLE IF NOT EXISTS 'users' (
 	'id' int(7) NOT NULL
