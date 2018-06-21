@@ -5,7 +5,7 @@
 Põhieesmärk: Klientidele luua veebileht, kus peal saab ta arvutada haridusasutuse elektritarbimist aasta/kuu/nädala/päeva lõikes.
 
 ## Kirjeldus  
-Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV(failis tuleb ära kustutada esimesed 5 rida, et faili esimene rida oleksid andmed) faili ning veebileht töötleb sisestatud faili ära. Kasutajale kuvatakse diagrammid, kust ta saab vaadata elektritarbimist ning olenevalt diagrammist saab ta ka muuta vahemikke. 
+Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV(failis tuleb ära kustutada esimesed 5 rida, et faili esimene rida oleksid andmed) faili ning veebileht töötleb sisestatud faili ära. Kasutajale kuvatakse diagrammid, kust ta saab vaadata elektritarbimist ning olenevalt diagrammist saab ta ka muuta vahemikke. Kliend peaks enda serveris CSV kaustale panema ka WRITE õigused, et kõik töötaks.
 
 ## Liikmed
 * Krister Riska
