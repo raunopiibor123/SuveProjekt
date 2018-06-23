@@ -8,8 +8,8 @@ Põhieesmärk: Klientidele luua veebileht, kus peal saab ta arvutada haridusasut
 Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV(failis tuleb ära kustutada esimesed 5 rida, et faili esimene rida oleksid andmed) faili ning veebileht töötleb sisestatud faili ära. Kasutajale kuvatakse diagrammid, kust ta saab vaadata elektritarbimist ning olenevalt diagrammist saab ta ka muuta vahemikke.
 
 ## Paigaldus
-1.Panna oma serveris kaustale csv WRITE õigused
-2.Luua config.php ja bdd.php failid
+1. Panna oma serveris kaustale csv WRITE õigused
+2. Luua config.php ja bdd.php failid
 config.php:
 ```
 <?php
@@ -27,7 +27,7 @@ try
     die('Error : ' . $e->getMessage());
 }
 ```
-3.Seadistada ka classes/Useractions.class.php failis 22. real andmebaas
+3. Seadistada ka classes/Useractions.class.php failis 22. real andmebaas
 
 ## Liikmed
 * Krister Riska
