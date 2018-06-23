@@ -88,7 +88,7 @@ if (isset($_POST["createRaportButton"])) {
 }
 
 // ANDMEBAASIST LUGEMINE
-$conn = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
+$conn = new mysqli($serverHost, $serverUsername, $serverPassword, $database, $serverPort);
 $sql = "SELECT filename, title, description FROM csv WHERE userid='$userid'";
 //$conn->bind_param("i", $_SESSION['userId']);
 $query = mysqli_query($conn, $sql);

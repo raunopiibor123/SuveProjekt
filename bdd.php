@@ -14,7 +14,7 @@
 
 try
 {
-    $bdd = new PDO('mysql:host=localhost;dbname=if17_roheline;charset=utf8', 'if17', 'if17');
+    $bdd = new PDO('mysql:host=localhost:8889;dbname=if17_roheline;charset=utf8', 'root', 'root');
 } catch (Exception $e) {
     die('Error : ' . $e->getMessage());
 }

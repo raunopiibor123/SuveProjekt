@@ -19,7 +19,7 @@ class UserActions
 
     public function __construct()
     {
-        $this->_PDO = $pdo = new PDO('mysql:host=localhost;dbname=if17_roheline;charset=utf8', 'if17', 'if17');
+        $this->_PDO = $pdo = new PDO('mysql:host=localhost:8889;dbname=if17_roheline;charset=utf8', 'root', 'root');
     }
 
     public function login($email, $password)

@@ -42,14 +42,14 @@ $list2 = $csvClass->getYearlyValues();
 $list3 = $csvClass->getWeeklyValues();
 $list4 = $csvClass->getDailyValues();
 $list5 = $csvClass->getMonthlyDailyValues("2017", "12");
-$list6 = $csvClass->getMonthlyMarketPrices("2017");
+//$list6 = $csvClass->getMonthlyMarketPrices("2017");
 
 $target_dir = "csv/";
 $database = "if17_roheline";
 $userid = $_SESSION["user_id"];
 
 // ANDMEBAASIST LUGEMINE
-$conn = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
+$conn = new mysqli($serverHost, $serverUsername, $serverPassword, $database, $serverPort);
 $sql = "SELECT id, title, description FROM csv WHERE filename='$rId'";
 //$conn->bind_param("i", $_SESSION['userId']);
 $query = mysqli_query($conn, $sql);
