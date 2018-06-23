@@ -5,7 +5,29 @@
 Põhieesmärk: Klientidele luua veebileht, kus peal saab ta arvutada haridusasutuse elektritarbimist aasta/kuu/nädala/päeva lõikes.
 
 ## Kirjeldus  
-Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV(failis tuleb ära kustutada esimesed 5 rida, et faili esimene rida oleksid andmed) faili ning veebileht töötleb sisestatud faili ära. Kasutajale kuvatakse diagrammid, kust ta saab vaadata elektritarbimist ning olenevalt diagrammist saab ta ka muuta vahemikke. Kliend peaks enda serveris CSV kaustale panema ka WRITE õigused, et kõik töötaks. Config failis tuleb ära muuta andmebaasi nimi ja parool ning andmebaas.
+Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV(failis tuleb ära kustutada esimesed 5 rida, et faili esimene rida oleksid andmed) faili ning veebileht töötleb sisestatud faili ära. Kasutajale kuvatakse diagrammid, kust ta saab vaadata elektritarbimist ning olenevalt diagrammist saab ta ka muuta vahemikke.
+
+## Paigaldus
+1.Panna oma serveris kaustale csv WRITE õigused
+2.Luua config.php ja bdd.php failid
+config.php:
+```
+<?php
+$serverHost = "localhost";
+$serverUsername = "user";
+$serverPassword = "pw";
+
+```
+bdd.php:
+```
+try
+{
+    $bdd = new PDO('mysql:host=localhost;dbname=database;charset=utf8', 'user', 'pw');
+} catch (Exception $e) {
+    die('Error : ' . $e->getMessage());
+}
+```
+3.Seadistada ka classes/Useractions.class.php failis 22. real andmebaas
 
 ## Liikmed
 * Krister Riska
