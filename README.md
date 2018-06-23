@@ -10,7 +10,7 @@ Klient saab ennast registreerida veebilehel ja sisse logida. Sisestada CSV(faili
 ## Paigaldus
 1. Panna oma serveris kaustale csv WRITE õigused
 2. Luua config.php ja bdd.php failid
-config.php:
+* config.php:
 ```
 <?php
 $serverHost = "localhost";
@@ -18,7 +18,7 @@ $serverUsername = "user";
 $serverPassword = "pw";
 
 ```
-bdd.php:
+* bdd.php:
 ```
 try
 {
